@@ -1,8 +1,16 @@
 package com.app.dayregistry.screens
 
-enum class CupcakeScreen() {
-    HOME,
-    ADD_ACTIVITY,
+import androidx.compose.runtime.Composable
+
+enum class NavigationScreen() {
+    ENTRIES,
     STATS,
+    ADD,
     CALENDAR,
+    SETTINGS
+}
+
+@Composable
+fun Navigation(){
+
 }
