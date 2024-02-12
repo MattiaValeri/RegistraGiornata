@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.app.dayregistry.screens.MainHourActivityScreen
+import com.app.dayregistry.screens.Navigation
 import com.app.dayregistry.ui.theme.DayRegistryTheme
 
 private const val TAG = "MAIN_ACTIVITY_DEBUG"
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DayRegistryTheme {
-                MainHourActivityScreen()
+               Navigation()
             }
         }
     }

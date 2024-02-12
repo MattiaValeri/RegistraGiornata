@@ -15,9 +15,6 @@ class ActivitiesModel : ViewModel() {
     var listOfActivity = mutableStateListOf<ActivityChipData>()
         private set
 
-
-
-
     fun addActivity(activity: ActivityChipData){
         listOfActivity += activity
     }
