@@ -16,21 +16,27 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.app.dayregistry.R
 import com.app.dayregistry.components.ActivityTab
-import com.app.dayregistry.components.ButtonText
+import com.app.dayregistry.components.NormalText
 import com.app.dayregistry.components.MiniTextWithIcon
 import com.app.dayregistry.components.TitleText
+import com.app.dayregistry.data.ActivityChipData
 import com.app.dayregistry.ui.theme.DayRegistryTheme
+import com.app.dayregistry.view.EditingActivitiesModel
 
 @Composable
-fun MainHourActivityScreen(){
+fun MainHourActivityScreen(
+    model : EditingActivitiesModel = viewModel()
+){
     Surface (
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(21.dp)
+            .padding(dimensionResource(id = R.dimen.app_padding))
             .fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ){
@@ -46,13 +52,21 @@ fun MainHourActivityScreen(){
                 MiniTextWithIcon(text = "01/01/20", icon = R.drawable.calendar_o)
             }
             Spacer(modifier = Modifier.height(15.dp))
-            ActivityTab()
+            ActivityTab(
+                activities = model.listOfActivity,
+                onActivityChipClick = {
+                    chip: ActivityChipData->
+                    model.removeActivity(ActivityChipData(chip.activity)
+                )},
+                onAddActivity = {},
+                enableAdding = true,
+            )
             Spacer(modifier = Modifier.height(15.dp))
             Button(
                 modifier = Modifier.align(Alignment.End),
                 onClick = { /*TODO*/ },
             ){
-                ButtonText(text = "Done")
+                NormalText(text = "Done")
             }
         }
     }
