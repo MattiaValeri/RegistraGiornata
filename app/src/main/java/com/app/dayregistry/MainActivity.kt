@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.app.dayregistry.screens.MainHourActivityScreen
 import com.app.dayregistry.screens.Navigation
 import com.app.dayregistry.ui.theme.DayRegistryTheme
 
@@ -52,5 +51,21 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy Called")
+    }
+
+    @Preview
+    @Composable
+    fun PreviewDarkApp(){
+        DayRegistryTheme(useDarkTheme = true) {
+            Navigation()
+        }
+    }
+
+    @Preview
+    @Composable
+    fun PreviewWhiteApp(){
+        DayRegistryTheme(useDarkTheme = false) {
+            Navigation()
+        }
     }
 }

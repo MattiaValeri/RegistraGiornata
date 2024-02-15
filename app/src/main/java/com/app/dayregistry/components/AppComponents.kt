@@ -41,6 +41,22 @@ fun TitleText(
 }
 
 @Composable
+fun SubtitleText(
+    modifier: Modifier = Modifier,
+    text: String
+){
+    Text(
+        modifier = Modifier,
+        text = text,
+        style = TextStyle(
+            fontFamily = Roboto,
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp
+        )
+    )
+}
+
+@Composable
 fun MiniTextWithIcon(
     modifier: Modifier = Modifier,
     text: String,

@@ -25,19 +25,23 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.app.dayregistry.R
-import com.app.dayregistry.components.BottomNavigationBar
 import com.app.dayregistry.components.NormalAppButton
 import com.app.dayregistry.components.NormalText
 import com.app.dayregistry.components.StaticActivityTab
 import com.app.dayregistry.ui.theme.DayRegistryTheme
 
+object EntriesDestination: NavigationDestination{
+    override val route: String = "entries"
+    override val titleRes: Int = 0
+}
+
 @Composable
 fun EntriesScreenMain(
-    navController: NavController
+    bottomNavigation: @Composable ()->Unit
 ){
     Scaffold (
         bottomBar = {
-            BottomNavigationBar(navController)
+            bottomNavigation()
         }
     ){ innerPadding ->
         Box(
@@ -56,7 +60,7 @@ fun EntriesScreenMain(
                 Column {
                     MonthBar("Month")
                     Spacer(modifier = Modifier.height(20.dp))
-                    StaticActivityTab()
+                    //StaticActivityTab()
                 }
             }
         }
@@ -90,16 +94,16 @@ fun MonthBar(
 
 @Preview
 @Composable
-fun EntriesScreenPreviewNight(){
+private fun EntriesScreenPreviewNight(){
     DayRegistryTheme(true) {
-        EntriesScreenMain(rememberNavController())
+        EntriesScreenMain { BottomNavigationBar() }
     }
 }
 
 @Preview
 @Composable
-fun EntriesScreenPreviewDay(){
+private fun EntriesScreenPreviewDay(){
     DayRegistryTheme(false) {
-        EntriesScreenMain(rememberNavController())
+        EntriesScreenMain{ BottomNavigationBar() }
     }
 }

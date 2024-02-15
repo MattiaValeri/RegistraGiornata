@@ -29,8 +29,14 @@ import com.app.dayregistry.data.ActivityChipData
 import com.app.dayregistry.ui.theme.DayRegistryTheme
 import com.app.dayregistry.view.EditingActivitiesModel
 
+object HourlyAddDestination: NavigationDestination{
+    override val route: String = "hourly_add"
+    override val titleRes: Int = 0
+
+}
+
 @Composable
-fun MainHourActivityScreen(
+fun HourlyAddActivityScreen(
     model : EditingActivitiesModel = viewModel()
 ){
     Surface (
@@ -48,10 +54,10 @@ fun MainHourActivityScreen(
             TitleText(text = "How Are You?")
             Row {
                 MiniTextWithIcon(text = "12:34", icon = R.drawable.clock)
-                Spacer(modifier = Modifier.width(21.dp))
+                Spacer(modifier = Modifier.width(20.dp))
                 MiniTextWithIcon(text = "01/01/20", icon = R.drawable.calendar_o)
             }
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             ActivityTab(
                 activities = model.listOfActivity,
                 onActivityChipClick = {
@@ -61,7 +67,7 @@ fun MainHourActivityScreen(
                 onAddActivity = {},
                 enableAdding = true,
             )
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             Button(
                 modifier = Modifier.align(Alignment.End),
                 onClick = { /*TODO*/ },
@@ -74,17 +80,17 @@ fun MainHourActivityScreen(
 
 @Preview
 @Composable
-fun HourActivityPreviewNight(){
+private fun HourActivityPreviewNight(){
     DayRegistryTheme(true) {
-        MainHourActivityScreen()
+        HourlyAddActivityScreen()
     }
 }
 
 @Preview
 @Composable
-fun HourActivityPreviewDay(){
+private fun HourActivityPreviewDay(){
     DayRegistryTheme(false) {
-        MainHourActivityScreen()
+        HourlyAddActivityScreen()
     }
 }
 

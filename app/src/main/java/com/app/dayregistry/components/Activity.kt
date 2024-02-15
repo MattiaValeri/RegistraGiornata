@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -29,8 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.app.dayregistry.data.ActivityChipData
 import com.app.dayregistry.ui.theme.Roboto
-import com.app.dayregistry.view.EditingActivitiesModel
-import com.app.dayregistry.view.EntriesModel
+import com.app.dayregistry.view.ActivityTypeEditModel
 
 private const val TAG = "ACTIVITY_CODE_DEBUG"
 
@@ -38,7 +36,7 @@ private const val TAG = "ACTIVITY_CODE_DEBUG"
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun StaticActivityTab(
-    model : EntriesModel = viewModel(),
+    model : ActivityTypeEditModel = viewModel(),
 ){
     Column (modifier = Modifier
         .clip(RoundedCornerShape(8))
@@ -157,7 +155,7 @@ fun ActivityAddButton(
 ){
     NormalAppButton(
         text = "+",
-        onClick = { onClick()}
+        onClick = { onClick() }
     )
 }
 
