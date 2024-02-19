@@ -8,9 +8,15 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.Placeholder
@@ -18,6 +24,7 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,16 +34,18 @@ import com.app.dayregistry.ui.theme.Roboto
 @Composable
 fun TitleText(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
+    textAlign: TextAlign? = TextAlign.Left
 ){
     Text(
-        modifier = Modifier,
+        modifier = modifier,
         text = text,
         style = TextStyle(
             fontFamily = Roboto,
             fontWeight = FontWeight.Bold,
             fontSize = 35.sp
-        )
+        ),
+        textAlign = textAlign
     )
 }
 
@@ -46,7 +55,7 @@ fun SubtitleText(
     text: String
 ){
     Text(
-        modifier = Modifier,
+        modifier = modifier,
         text = text,
         style = TextStyle(
             fontFamily = Roboto,
@@ -88,7 +97,7 @@ fun MiniTextWithIcon(
     )
 
     Text(
-        modifier = Modifier,
+        modifier = modifier,
         text = wholeText,
         inlineContent=inlineContent,
         style = TextStyle(
@@ -133,6 +142,23 @@ fun NormalAppButton(
     ) {
         NormalText(text = text)
     }
+}
+
+@Composable
+fun NormalOutlinedTextField(
+    modifier: Modifier = Modifier,
+    initialText: String = "",
+    label: String
+){
+    var text by remember { mutableStateOf(TextFieldValue(initialText)) }
+    OutlinedTextField(
+        modifier = modifier,
+        value = text,
+        onValueChange = { newText ->
+            text = newText
+        },
+        label = {Text(text = label)}
+    )
 }
 
 

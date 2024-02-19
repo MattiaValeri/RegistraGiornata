@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -123,6 +124,7 @@ fun ActivityTab(
 fun ActivityChip(
     modifier: Modifier = Modifier,
     activity: String,
+    color: Color = MaterialTheme.colorScheme.surface,
     onClick: () -> Unit
 ){
     Surface(
@@ -130,7 +132,7 @@ fun ActivityChip(
             .padding(end = 12.dp, bottom = 8.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface
+        color = color
     ) {
         Row(modifier = Modifier) {
             Text(
@@ -154,6 +156,7 @@ fun ActivityAddButton(
     onClick: () -> Unit
 ){
     NormalAppButton(
+        modifier = modifier,
         text = "+",
         onClick = { onClick() }
     )

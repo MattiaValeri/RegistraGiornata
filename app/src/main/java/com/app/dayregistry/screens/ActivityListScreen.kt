@@ -15,27 +15,49 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.app.dayregistry.R
 import com.app.dayregistry.components.ActivityAddButton
 import com.app.dayregistry.components.ActivityChip
 import com.app.dayregistry.components.TitleText
+import com.app.dayregistry.database.ActivityTypes
 import com.app.dayregistry.ui.theme.DayRegistryTheme
+import com.app.dayregistry.view.ActivityListModel
+import com.app.dayregistry.view.AppViewModelProvider
 
 object ActivityListDestination: NavigationDestination{
     override val route: String = "activities"
     override val titleRes: Int = 0
 }
 
-
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ActivityListScreen(
     onCreateActivity: () -> Unit,
-    bottomNavigation: @Composable ()->Unit
+    bottomNavigation: @Composable ()->Unit,
+    viewModel: ActivityListModel = viewModel(factory = AppViewModelProvider.Factory)
+){
+    val activityListState by viewModel.activityListState.collectAsState()
+    ActivityListScreenList(
+        onCreateActivity = { onCreateActivity() },
+        bottomNavigation = { bottomNavigation() },
+        activityList = activityListState.itemList
+    )
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun ActivityListScreenList(
+    onCreateActivity: () -> Unit,
+    bottomNavigation: @Composable ()->Unit,
+    viewModel: ActivityListModel = viewModel(factory = AppViewModelProvider.Factory),
+    activityList: List<ActivityTypes>
 ) {
     Scaffold (
         bottomBar = {
@@ -63,8 +85,17 @@ fun ActivityListScreen(
                         modifier = Modifier
                             .fillMaxSize()
                     ){
-                        ActivityAddButton (onClick = onCreateActivity)
-
+                        ActivityAddButton (
+                            modifier = Modifier.padding(end = 12.dp, bottom = 8.dp),
+                            onClick = onCreateActivity
+                        )
+                        activityList.forEach{
+                            ActivityChip(
+                                activity = it.name,
+                                color = it.color,
+                                onClick = { /*onActivityChipClick(it)*/ }
+                            )
+                        }
                     }
                 }
             }
@@ -78,7 +109,14 @@ fun ActivityListScreen(
 @Composable
 fun ActivityListPreviewNight(){
     DayRegistryTheme(true) {
-        ActivityListScreen (onCreateActivity = {}){ BottomNavigationBar() }
+        ActivityListScreenList (onCreateActivity = {},
+            bottomNavigation = {BottomNavigationBar()},
+            activityList = listOf(
+                ActivityTypes(name = "Penis", color = Color.Cyan),
+                ActivityTypes(name = "Penis2", color = Color.White)
+
+            )
+        )
     }
 }
 
@@ -86,6 +124,9 @@ fun ActivityListPreviewNight(){
 @Composable
 fun ActivityListPreviewDay(){
     DayRegistryTheme(false) {
-        ActivityListScreen (onCreateActivity = {}){ BottomNavigationBar() }
+        ActivityListScreenList (onCreateActivity = {},
+            bottomNavigation = {BottomNavigationBar()},
+            activityList = listOf()
+        )
     }
 }

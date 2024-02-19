@@ -1,6 +1,8 @@
 package com.app.dayregistry.view
 
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.app.dayregistry.MainApplication
@@ -10,8 +12,15 @@ object AppViewModelProvider {
      initializer {
          ActivityTypeEditModel(
              this.createSavedStateHandle(),
-             MainApplication().container.repository
+             mainApplication().container.repository
+         )
+     }
+     initializer {
+         ActivityListModel(
+             mainApplication().container.repository
          )
      }
  }
 }
+fun CreationExtras.mainApplication(): MainApplication =
+    (this[AndroidViewModelFactory.APPLICATION_KEY] as MainApplication)

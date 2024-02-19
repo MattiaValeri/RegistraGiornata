@@ -57,9 +57,13 @@ fun Navigation(
             }
         }
         composable(route = ActivityListDestination.route){
-            ActivityListScreen (onCreateActivity = {navController.navigate(ActivityTypesModifyDestination.route)}){
-                BottomNavigationBar(navController)
-            }
+            ActivityListScreenList (
+                onCreateActivity = {
+                    navController.navigate(ActivityTypesModifyDestination.route) },
+                bottomNavigation = {
+                    BottomNavigationBar(navController) },
+                activityList = listOf()
+            )
         }
         composable(route = HourlyAddDestination.route) {
             HourlyAddActivityScreen()
